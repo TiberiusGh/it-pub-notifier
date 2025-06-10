@@ -33,7 +33,21 @@ main()
 // Call main again at interval
 setInterval(main, intervalMinutes * 60 * 1000)
 
-// Send notification about crashes
+// Send notifications about shutdown and crashes
+process.on('SIGINT', async () => {
+  await sendErrorNotificationToDiscord(
+    new Error('Application manually stopped (SIGINT)')
+  )
+  process.exit(0)
+})
+
+process.on('SIGTERM', async () => {
+  await sendErrorNotificationToDiscord(
+    new Error('Application terminated (SIGTERM)')
+  )
+  process.exit(0)
+})
+
 process.on('uncaughtException', async (error) => {
   await sendErrorNotificationToDiscord(
     new Error(`Uncaught Exception: ${error.message}`)
