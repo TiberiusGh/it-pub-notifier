@@ -62,5 +62,5 @@ jobs:
           CHECK_INTERVAL: ${{ secrets.CHECK_INTERVAL }}
           USER_AGENT: ${{ secrets.USER_AGENT }}
         run: |
-          docker compose pull
-          docker compose up -d
+          docker-compose pull
+          docker-compose up -d
