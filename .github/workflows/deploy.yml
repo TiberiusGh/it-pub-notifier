@@ -30,24 +30,24 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-deploy:
-  needs: build
-  runs-on: self-hosted
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Login to GitHub Container Registry
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-    - name: Pull latest image and deploy
-      env: # Pass secrets as environment variables
-        URL: ${{ secrets.URL }}
-        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        START_HOUR: ${{ secrets.START_HOUR }}
-        END_HOUR: ${{ secrets.END_HOUR }}
-        CHECK_INTERVAL: ${{ secrets.CHECK_INTERVAL }}
-        USER_AGENT: ${{ secrets.USER_AGENT }}
-      run: |
-        docker compose pull
-        docker-compose up -d
+      - name: Pull latest image and deploy
+        env:
+          URL: ${{ secrets.URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          START_HOUR: ${{ secrets.START_HOUR }}
+          END_HOUR: ${{ secrets.END_HOUR }}
+          CHECK_INTERVAL: ${{ secrets.CHECK_INTERVAL }}
+          USER_AGENT: ${{ secrets.USER_AGENT }}
+        run: |
+          docker compose pull
+          docker-compose up -d
