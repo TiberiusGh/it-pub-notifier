@@ -1,6 +1,6 @@
 services:
   it-pub-scraper:
-    image: ghcr.io/TiberiusGh/it-pub-notifier:latest
+    image: ghcr.io/tiberiusgh/it-pub-notifier:latest
     container_name: it-pub-scraper
     restart: unless-stopped
     environment:
