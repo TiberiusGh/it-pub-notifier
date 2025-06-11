@@ -79,11 +79,15 @@ export class Application {
         event.querySelector('.events-item__title')?.textContent || ''
       const excerpt =
         event.querySelector('.events-item__excerpt')?.textContent || ''
+
+      const searchTerm = 'it-pub'
+
       return (
-        title.toLowerCase().includes('it-pub') ||
-        excerpt.toLowerCase().includes('it-pub')
+        title.toLowerCase().includes(searchTerm) ||
+        excerpt.toLowerCase().includes(searchTerm)
       )
     })
+
     // Extract meaningful data from DOM elements
     return itPubEvents.map((event) => {
       const title =
