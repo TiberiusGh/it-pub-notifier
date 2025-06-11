@@ -65,3 +65,31 @@ export async function sendErrorNotificationToDiscord(error) {
     console.error('Failed to send error notification:', fetchError.message)
   }
 }
+
+export async function sendInformationNotificationToDiscord(
+  message,
+  title = 'ℹ️ IT-Pub Scraper Info'
+) {
+  const webhookUrl = process.env.DISCORD_WEBHOOK_URL
+
+  const discordMessage = {
+    embeds: [
+      {
+        title: title,
+        description: message,
+        color: 0x0099ff,
+        timestamp: new Date().toISOString()
+      }
+    ]
+  }
+
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(discordMessage)
+    })
+  } catch (error) {
+    console.error('Failed to send info notification:', error.message)
+  }
+}

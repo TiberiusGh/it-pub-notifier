@@ -6,7 +6,10 @@
  */
 
 import { Application } from './application.js'
-import { sendErrorNotificationToDiscord } from './sendNotification.js'
+import {
+  sendErrorNotificationToDiscord,
+  sendInformationNotificationToDiscord
+} from './sendNotification.js'
 
 const main = async () => {
   const hour = new Date().getHours()
@@ -27,6 +30,20 @@ const main = async () => {
 }
 
 const intervalMinutes = parseInt(process.env.CHECK_INTERVAL)
+
+const sendStartupNotification = async () => {
+  await sendInformationNotificationToDiscord(
+    `IT-Pub notifier container started successfully at ${new Date().toLocaleString()}. Monitoring ${
+      process.env.URL
+    } every ${process.env.CHECK_INTERVAL} minutes between ${
+      process.env.START_HOUR
+    }:00 and ${process.env.END_HOUR}:00.`,
+    '🚀 Container Started'
+  )
+}
+
+// Send startup notification immediately
+await sendStartupNotification()
 
 main()
 
