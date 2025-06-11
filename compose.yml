@@ -1,10 +1,15 @@
 services:
   it-pub-scraper:
-    build: .
+    image: ghcr.io/TiberiusGh/it-pub-notifier:latest
     container_name: it-pub-scraper
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      - URL=${URL}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+      - START_HOUR=${START_HOUR}
+      - END_HOUR=${END_HOUR}
+      - CHECK_INTERVAL=${CHECK_INTERVAL}
+      - USER_AGENT=${USER_AGENT}
     volumes:
       - it-pub-data:/it_pub/data
 
