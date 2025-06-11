@@ -11,6 +11,8 @@ RUN npm install
 
 COPY . .
 
+RUN mkdir -p data && chown -R it-pub:nodejs data
+
 USER it-pub
 
 CMD ["npm", "start"]

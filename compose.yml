@@ -1,0 +1,13 @@
+services:
+  it-pub-scraper:
+    build: .
+    container_name: it-pub-scraper
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - it-pub-data:/it_pub/data
+
+volumes:
+  it-pub-data:
+    driver: local
