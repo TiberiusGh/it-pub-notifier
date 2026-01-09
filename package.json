@@ -1,6 +1,6 @@
 {
   "name": "it-pub-notifier",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Own notifier for local IT pubs",
   "type": "module",
   "main": "src/app.js",
