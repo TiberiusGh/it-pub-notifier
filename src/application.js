@@ -134,9 +134,17 @@ export class Application {
       }
 
       const data = await readFile('./data/it-pubs.json', 'utf8')
+
+      // If file is empty or whitespace only, return empty array
+      if (!data || data.trim() === '') {
+        return []
+      }
+
       return JSON.parse(data)
     } catch (error) {
-      throw new Error(error)
+      // If JSON parsing fails, return empty array instead of crashing
+      console.error('Error loading previous IT-pubs:', error.message)
+      return []
     }
   }
 
